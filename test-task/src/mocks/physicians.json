@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1196feab-fe03-4050-89b6-2b580e8706a1",
+    "name": "Елена",
+    "surname": "Иванова",
+    "fatherName": "Романовна",
+    "branch": "surgery",
+    "isChief": true
+  },
+  {
+    "id": "ce3572a6-78eb-4c11-a347-9525eb780223",
+    "name": "Иван",
+    "surname": "Петров",
+    "fatherName": "Алексеевич",
+    "branch": "surgery"
+  },
+  {
+    "id": "1f3e4626-4825-4985-985d-99c088ddc4fb",
+    "name": "Сергей",
+    "surname": "Кузнецов",
+    "fatherName": "Иванович",
+    "branch": "cardiology",
+    "isChief": true
+  },
+  {
+    "id": "1f3e4626-4825-4985-985d-99c088ddc4fb",
+    "name": "Ирина",
+    "surname": "Александрова",
+    "fatherName": "Владимировна",
+    "branch": "cardiology"
+  }
+]
