@@ -4,13 +4,15 @@
     "name": "Алина",
     "surname": "Иванова",
     "fatherName": "Николаевна",
-    "branch": "surgery"
+    "branch": "surgery",
+    "type": "nurse"
   },
   {
     "id": "f8a7977d-2ffb-4d69-8216-783666bd4bc3",
     "name": "Ольга",
     "surname": "Иванова",
     "fatherName": "Валентиновна",
-    "branch": "cardiology"
+    "branch": "cardiology",
+    "type": "nurse"
   }
 ]

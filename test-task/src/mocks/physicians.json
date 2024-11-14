@@ -5,14 +5,24 @@
     "surname": "Иванова",
     "fatherName": "Романовна",
     "branch": "surgery",
-    "isChief": true
+    "isChief": true,
+    "type": "physician"
   },
   {
     "id": "ce3572a6-78eb-4c11-a347-9525eb780223",
     "name": "Иван",
     "surname": "Петров",
     "fatherName": "Алексеевич",
-    "branch": "surgery"
+    "branch": "surgery",
+    "type": "physician"
+  },
+  {
+    "id": "cee1be3f-b692-4c11-9068-34483718ed55",
+    "name": "Ирина",
+    "surname": "Александрова",
+    "fatherName": "Владимировна",
+    "branch": "cardiology",
+    "type": "physician"
   },
   {
     "id": "1f3e4626-4825-4985-985d-99c088ddc4fb",
@@ -20,13 +30,7 @@
     "surname": "Кузнецов",
     "fatherName": "Иванович",
     "branch": "cardiology",
-    "isChief": true
-  },
-  {
-    "id": "1f3e4626-4825-4985-985d-99c088ddc4fb",
-    "name": "Ирина",
-    "surname": "Александрова",
-    "fatherName": "Владимировна",
-    "branch": "cardiology"
+    "isChief": true,
+    "type": "physician"
   }
 ]
