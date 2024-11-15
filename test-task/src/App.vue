@@ -5,7 +5,7 @@ import { RouterView } from "vue-router";
 import LayoutHeader from "@/components/layout/LayoutHeader.vue";
 import AddUserForm from "@/components/common/AddUserForm.vue";
 import UModalWrapper from "@/components/uikit/UModalWrapper.vue";
-import type { INurse, IPhysician, IUser } from "@/types/user";
+import type { INurse, IPhysician } from "@/types/user";
 
 const isUserModalOpen = ref<boolean>(false);
 const editUser = ref<INurse | IPhysician | null>(null);
@@ -36,6 +36,7 @@ provide("userModal", {
       @open-modal="() => setIsUserModalOpen(true)"
     />
     <RouterView class="relative top-[72px]" />
+
     <footer class="mt-auto">
       Тестовое задание {{ isUserModalOpen.toString() }}
     </footer>
@@ -44,8 +45,11 @@ provide("userModal", {
       v-if="isUserModalOpen"
       @close-modal="() => setIsUserModalOpen(false)"
     >
-      <!--      todo lisa add dynamic type-->
-      <AddUserForm :user="editUser" type="nurse" :is-edit-mode="!!editUser" />
+      <AddUserForm
+        :user="editUser"
+        :is-edit-mode="!!editUser"
+        @close-modal="() => setIsUserModalOpen(false)"
+      />
     </UModalWrapper>
   </div>
 </template>

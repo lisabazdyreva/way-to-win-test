@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { inject, ref } from "vue";
-import UMainTitle from "@/components/uikit/UMainTitle.vue";
+
 import PhysiciansTable from "@/components/physicians/PhysiciansTable.vue";
-import UModalWrapper from "@/components/uikit/UModalWrapper.vue";
+import RemoveUserModal from "@/components/common/RemoveUserModal.vue";
+import UMainTitle from "@/components/uikit/UMainTitle.vue";
+import UButton from "@/components/uikit/UButton.vue";
 
 import type { IPhysician, IUserModalInject } from "@/types/user";
 import { useDataStore } from "@/stores/data";
@@ -15,11 +17,11 @@ const physicianToDelete = ref<IPhysician | null>(null);
 const isDeleteModalOpen = ref<boolean>(false);
 
 const handleEditUserModalOpen = (physician: IPhysician) => {
-  userModal.setEditUser(physician);
+  userModal?.setEditUser(physician);
 };
 
 const handleUserRemoveOpen = (idToRemove: string) => {
-  const item = dataStore.physicians.find(({ id }) => id === idToRemove);
+  const item = dataStore.physicians?.find(({ id }) => id === idToRemove);
 
   if (!item) {
     return;
@@ -35,11 +37,12 @@ const closeDeleteModal = () => {
 };
 
 const handleDeleteConfirmClick = () => {
-  const updatedPhysicians = dataStore.physicians.filter(
-    ({ id }) => id !== physicianToDelete.value.id,
-  );
+  const id = physicianToDelete.value?.id;
+  if (!id) {
+    return;
+  }
 
-  dataStore.updatePhysicians(updatedPhysicians);
+  dataStore.removePhysician(id);
   closeDeleteModal();
 };
 </script>
@@ -58,26 +61,20 @@ const handleDeleteConfirmClick = () => {
 
     <p class="text-red-500" v-else>Нет данных по врачам.</p>
 
-    <button
-      class="flex ml-auto mr-auto px-4 py-4 rounded-md bg-zinc-600 hover:bg-zinc-800 text-white font-semibold transition duration-100"
-      @click="() => userModal.setIsUserModalOpen(true)"
+    <UButton
+      class="flex mx-auto"
+      theme="light-gray"
+      @click="() => userModal?.setIsUserModalOpen(true)"
     >
-      Добавить нового врача
-    </button>
+      Добавить
+    </UButton>
 
     <teleport v-if="isDeleteModalOpen" to="body">
-      <UModalWrapper @close-modal="() => closeDeleteModal()">
-        <div>
-          <h3>
-            Вы уверены, что хотите удалить сотрудника
-            {{ physicianToDelete?.name }}?
-          </h3>
-          <div class="flex justify-between">
-            <button @click="closeDeleteModal">Отмена</button>
-            <button @click="handleDeleteConfirmClick">Подтвердить</button>
-          </div>
-        </div>
-      </UModalWrapper>
+      <RemoveUserModal
+        :name="`${physicianToDelete?.name} ${physicianToDelete?.fatherName}`"
+        @confirm-remove="handleDeleteConfirmClick"
+        @cancel-remove="closeDeleteModal"
+      />
     </teleport>
   </main>
 </template>

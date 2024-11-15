@@ -1,17 +1,24 @@
-export type UserBranchType = "cardiology" | "surgery";
-export type UserType = "nurse" | "physician";
+export enum UserType {
+  Nurse = "nurse",
+  Physician = "physician",
+}
+
+export enum BranchType {
+  Cardiology = "cardiology",
+  Surgery = "surgery",
+}
 
 export interface IUser {
   id: string;
   name: string;
   surname: string;
   fatherName: string;
-  branch: UserBranchType;
+  branch: BranchType;
   type: UserType;
 }
 
 export interface IPhysician extends IUser {
-  isChief: boolean;
+  isChief?: boolean;
 }
 
 export interface INurse extends IUser {}

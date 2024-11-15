@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import CrossIcon from "@/components/icons/CrossIcon.vue";
+import { onMounted, onUnmounted } from "vue";
+import { checkIsEsc } from "@/utils/checkIsEsc";
 
 const emits = defineEmits<{
   (e: "close-modal"): void;
@@ -8,6 +10,24 @@ const emits = defineEmits<{
 const handleModalClose = () => {
   emits("close-modal");
 };
+
+const handleEscKeydown = (evt: KeyboardEvent) => {
+  const isEsc = checkIsEsc(evt);
+
+  if (!isEsc) {
+    return;
+  }
+
+  handleModalClose();
+};
+
+onMounted(() => {
+  document.addEventListener("keydown", handleEscKeydown);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("keydown", handleEscKeydown);
+});
 </script>
 
 <template>

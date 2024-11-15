@@ -5,6 +5,8 @@ import RemoveIcon from "@/components/icons/RemoveIcon.vue";
 
 import type { IPhysician } from "@/types/user";
 import { ref } from "vue";
+import { BranchLabel } from "@/consts";
+import UButton from "@/components/uikit/UButton.vue";
 
 defineProps<{
   physicians: Array<IPhysician>;
@@ -35,7 +37,7 @@ const headers = ["Отделение", "Имя", "Отчество", "Фамил
           <td
             class="max-w-[300px] px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 truncate"
           >
-            {{ physician.branch }}
+            {{ BranchLabel[physician.branch] }}
           </td>
           <td
             class="max-w-[300px] px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 truncate"
@@ -57,18 +59,21 @@ const headers = ["Отделение", "Имя", "Отчество", "Фамил
           </td>
           <td class="px-6 max-w-[100px]">
             <div class="flex justify-between max-w-[100px]">
-              <button
-                class="bg-zinc-100 hover:bg-zinc-200 text-gray-700 font-semibold py-2 px-2 rounded-md shadow-md transition duration-100"
+              <UButton
+                theme="light-gray"
+                form="square"
                 @click="() => $emit('open-edit', physician)"
               >
                 <EditIcon class="h-5 w-5 text-gray-600" />
-              </button>
-              <button
-                class="bg-red-400 hover:bg-red-500 text-white font-semibold py-2 px-2 rounded-md shadow-md transition duration-100"
+              </UButton>
+
+              <UButton
+                theme="red"
+                form="square"
                 @click="() => $emit('remove-item', physician?.id)"
               >
                 <RemoveIcon class="h-5 w-5 text-white" />
-              </button>
+              </UButton>
             </div>
           </td>
         </tr>

@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
+import { computed } from "vue";
 
 const props = defineProps<{
-  value: boolean;
+  value: boolean | null;
   label: string;
   name: string;
+  disabled: boolean;
 }>();
 
-const emits = defineEmits<{
+defineEmits<{
   (e: "update"): void;
 }>();
 
@@ -15,15 +16,21 @@ const id = computed(() => `${props.name}_${props.label}`);
 </script>
 
 <template>
-  <div class="flex items-center space-x-2">
+  <div class="flex items-center mb-4">
+    <!-- todo lisa styles -->
     <input
-      type="checkbox"
-      :checked="value"
       :id="id"
-      class="h-5 w-5 text-blue-500 border-gray-300 rounded-sm focus:ring-blue-500"
+      class="w-5 h-5 appearance-none border cursor-pointer border-zinc-300 rounded-md mr-2 hover:border-emerald-200 hover:bg-emerald-100 checked:bg-no-repeat checked:bg-center checked:border-emerald-500 checked:bg-emerald-100 disabled:bg-zinc-300 disabled:border-zinc-300 disabled:cursor-auto transition duration-100"
+      type="checkbox"
+      :checked="!!value"
+      :disabled="disabled"
       @change="() => $emit('update')"
     />
-    <label :for="id" class="text-gray-700 font-medium">{{ label }}</label>
+    <label
+      :for="id"
+      class="text-sm font-norma cursor-pointer text-zinc-600 disabled:cursor-auto"
+      >{{ label }}</label
+    >
   </div>
 </template>
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
+import UButton from "@/components/uikit/UButton.vue";
 
 defineEmits<{
   (e: "open-modal"): void;
@@ -25,12 +26,9 @@ defineEmits<{
           >
         </li>
         <li class="ml-auto">
-          <button
-            class="py-2 px-4 bg-emerald-700 hover:bg-emerald-800 text-white font-medium rounded-md transition duration-100"
-            @click="$emit('open-modal')"
-          >
+          <UButton theme="green" @click="$emit('open-modal')">
             Добавить работника
-          </button>
+          </UButton>
         </li>
       </ul>
     </nav>
