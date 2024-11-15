@@ -1,10 +1,21 @@
 <script setup lang="ts">
-defineProps<{
-  modelValue?: string | null;
-  label?: string;
-  type?: "text" | "password";
-  placeholder?: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    modelValue?: string | null;
+    label?: string;
+    type?: "text" | "password";
+    placeholder?: string;
+    required?: boolean;
+    minLength?: number;
+    maxLength?: number;
+  }>(),
+  {
+    type: "text",
+    required: false,
+    minLength: 2,
+    maxLength: 250,
+  },
+);
 
 const emits = defineEmits<{
   (e: "update:model-value", value: string): void;
@@ -22,7 +33,10 @@ const onInput = (evt: Event) => {
       class="text-md outline-none bg-transparent"
       :value="modelValue"
       :type="type"
+      :required="required"
       :placeholder="placeholder"
+      :minlength="minLength"
+      :maxlength="maxLength"
       @input="onInput"
     />
   </label>

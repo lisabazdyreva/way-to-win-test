@@ -37,8 +37,8 @@ provide("userModal", {
     />
     <RouterView class="relative top-[72px]" />
 
-    <footer class="mt-auto">
-      Тестовое задание {{ isUserModalOpen.toString() }}
+    <footer class="relative mt-auto ml-auto top-[72px]">
+      Тестовое задание
     </footer>
 
     <UModalWrapper

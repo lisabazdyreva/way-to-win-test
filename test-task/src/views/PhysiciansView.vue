@@ -2,6 +2,7 @@
 import { inject, ref } from "vue";
 
 import PhysiciansTable from "@/components/physicians/PhysiciansTable.vue";
+import PhysiciansList from "@/components/physicians/PhysiciansList.vue";
 import RemoveUserModal from "@/components/common/RemoveUserModal.vue";
 import UMainTitle from "@/components/uikit/UMainTitle.vue";
 import UButton from "@/components/uikit/UButton.vue";
@@ -51,13 +52,21 @@ const handleDeleteConfirmClick = () => {
   <main class="mx-1">
     <UMainTitle> Таблица врачей </UMainTitle>
 
-    <PhysiciansTable
-      class="mb-4"
-      v-if="dataStore.physicians?.length"
-      :physicians="dataStore.physicians"
-      @open-edit="handleEditUserModalOpen"
-      @remove-item="handleUserRemoveOpen"
-    />
+    <template v-if="dataStore.physicians?.length">
+      <PhysiciansTable
+        class="mb-4 physicians-table--desktop"
+        :physicians="dataStore.physicians"
+        @open-edit="handleEditUserModalOpen"
+        @remove-item="handleUserRemoveOpen"
+      />
+
+      <PhysiciansList
+        class="mb-4 physicians-table--mobile"
+        :physicians="dataStore.physicians"
+        @open-edit="handleEditUserModalOpen"
+        @remove-item="handleUserRemoveOpen"
+      />
+    </template>
 
     <p class="text-red-500" v-else>Нет данных по врачам.</p>
 
@@ -79,4 +88,17 @@ const handleDeleteConfirmClick = () => {
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+.physicians-table--desktop {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .physicians-table--desktop {
+    display: block;
+  }
+  .physicians-table--mobile {
+    display: none;
+  }
+}
+</style>

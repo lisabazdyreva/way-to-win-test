@@ -16,7 +16,7 @@ defineEmits<{
   <UModalWrapper @close-modal="() => $emit('cancel-remove')">
     <div>
       <h3 class="text-xl font-bold text-blue-950 pt-1.5 pb-3 text-center mb-2">
-        Вы уверены, что хотите удалить сотрудника {{ name }}?
+        Вы уверены, что хотите удалить сотрудника <br />{{ name }}?
       </h3>
       <div class="flex justify-between">
         <UButton theme="light-gray" @click="$emit('cancel-remove')">

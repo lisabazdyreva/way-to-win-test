@@ -20,45 +20,56 @@ defineEmits<{
 const currentSortType = ref<null | string>();
 const currentFilterType = ref<null | string>();
 
-const headers = ["Отделение", "Имя", "Отчество", "Фамилия", "Действия"];
+const headers = [
+  {
+    title: "Отделение",
+    width: "w-[150px] max-w-[150px]",
+  },
+  {
+    title: "ФИО",
+    width: "custom-base",
+  },
+  {
+    title: "Действия",
+    width: "w-[150px] max-w-[150px]",
+  },
+];
 </script>
 
 <template>
   <div>
-    <div class="flex justify-between">Фильтрация, сортировка</div>
+    <!--    <div class="flex justify-between">Фильтрация, сортировка</div>-->
 
     <UTable :headers="headers">
       <template #rows>
         <tr
           v-for="physician in physicians"
           :key="physician.id"
-          :class="{ 'bg-emerald-100': physician?.isChief }"
+          :class="{ 'bg-emerald-100/50': physician?.isChief }"
         >
           <td
-            class="max-w-[300px] px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 truncate"
+            class="w-[150px] px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 truncate"
           >
             {{ BranchLabel[physician.branch] }}
           </td>
           <td
-            class="max-w-[300px] px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 truncate"
+            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 truncate"
           >
-            <div>
-              <span v-if="physician?.isChief">Заведующий</span>
+            <div
+              class="max-w-[400px] whitespace-nowrap text-sm font-medium text-gray-800 truncate"
+            >
+              {{ physician.surname }}
               {{ physician.name }}
+              {{ physician.fatherName }}
             </div>
+            <span
+              v-if="physician?.isChief"
+              class="text-xs text-emerald-800 font-bold"
+              >Заведующий отделением</span
+            >
           </td>
-          <td
-            class="max-w-[300px] px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 truncate"
-          >
-            {{ physician.fatherName }}
-          </td>
-          <td
-            class="max-w-[300px] px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 truncate"
-          >
-            {{ physician.surname }}
-          </td>
-          <td class="px-6 max-w-[100px]">
-            <div class="flex justify-between max-w-[100px]">
+          <td class="w-[150px] px-6">
+            <div class="flex justify-between">
               <UButton
                 theme="light-gray"
                 form="square"

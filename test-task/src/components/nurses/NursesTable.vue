@@ -16,53 +16,66 @@ defineEmits<{
   (e: "remove-item", id: string): void;
 }>();
 
-const headers = ["Отделение", "Имя", "Отчество", "Фамилия", "Действия"];
+const headers = [
+  {
+    title: "Отделение",
+    width: "w-[150px] max-w-[150px]",
+  },
+  {
+    title: "ФИО",
+    width: "custom-base",
+  },
+  {
+    title: "Действия",
+    width: "w-[150px] max-w-[150px]",
+  },
+];
 </script>
 
 <template>
-  <UTable :headers="headers">
-    <template #rows>
-      <tr v-for="nurse in nurses" :key="nurse.id" class="border-red-50">
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-          {{ BranchLabel[nurse.branch] }}
-        </td>
-        <td
-          class="max-w-[300px] px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 truncate"
-        >
-          {{ nurse.name }}
-        </td>
-        <td
-          class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"
-        >
-          {{ nurse.fatherName }}
-        </td>
-        <td
-          class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"
-        >
-          {{ nurse.surname }}
-        </td>
-        <td class="px-6 max-w-[100px]">
-          <div class="flex justify-between max-w-[100px]">
-            <UButton
-              theme="light-gray"
-              form="square"
-              @click="() => $emit('open-edit', nurse)"
+  <div>
+    <UTable :headers="headers">
+      <template #rows>
+        <tr v-for="nurse in nurses" :key="nurse.id">
+          <td
+            class="max-w-[150px] w-[150px] px-6 py-4 whitespace-nowrap text-sm text-gray-800"
+          >
+            {{ BranchLabel[nurse.branch] }}
+          </td>
+          <td
+            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"
+          >
+            <div
+              class="max-w-[400px] whitespace-nowrap text-sm font-medium text-gray-800 truncate"
             >
-              <EditIcon class="h-5 w-5 text-gray-600" />
-            </UButton>
+              {{ nurse.surname }}
+              {{ nurse.name }}
+              {{ nurse.fatherName }}
+            </div>
+          </td>
+          <td class="max-w-[150px] w-[150px] px-6">
+            <div class="flex justify-between">
+              <UButton
+                theme="light-gray"
+                form="square"
+                @click="() => $emit('open-edit', nurse)"
+              >
+                <EditIcon class="h-5 w-5 text-gray-600" />
+              </UButton>
 
-            <UButton
-              theme="red"
-              form="square"
-              @click="() => $emit('remove-item', nurse?.id)"
-            >
-              <RemoveIcon class="h-5 w-5 text-white" />
-            </UButton>
-          </div>
-        </td>
-      </tr>
-    </template>
-  </UTable>
+              <UButton
+                theme="red"
+                form="square"
+                @click="() => $emit('remove-item', nurse?.id)"
+              >
+                <RemoveIcon class="h-5 w-5 text-white" />
+              </UButton>
+            </div>
+          </td>
+        </tr>
+      </template>
+    </UTable>
+  </div>
 </template>
 
 <style scoped></style>

@@ -8,6 +8,7 @@ import UMainTitle from "@/components/uikit/UMainTitle.vue";
 
 import type { INurse, IUserModalInject } from "@/types/user";
 import { useDataStore } from "@/stores/data";
+import NursesList from "@/components/nurses/NursesList.vue";
 
 const dataStore = useDataStore();
 
@@ -51,13 +52,20 @@ const handleDeleteConfirmClick = () => {
   <main class="mx-1">
     <UMainTitle> Таблица медсестёр </UMainTitle>
 
-    <NursesTable
-      v-if="dataStore?.nurses?.length"
-      class="mb-4"
-      :nurses="dataStore.nurses"
-      @open-edit="handleEditUserModalOpen"
-      @remove-item="handleUserRemoveOpen"
-    />
+    <template v-if="dataStore?.nurses?.length">
+      <NursesTable
+        class="mb-4 nurses-table--desktop"
+        :nurses="dataStore.nurses"
+        @open-edit="handleEditUserModalOpen"
+        @remove-item="handleUserRemoveOpen"
+      />
+      <NursesList
+        class="mb-4 nurses-table--mobile"
+        :nurses="dataStore.nurses"
+        @open-edit="handleEditUserModalOpen"
+        @remove-item="handleUserRemoveOpen"
+      />
+    </template>
 
     <p v-else class="text-red-500">Нет данных по медсёстрам.</p>
 
@@ -80,4 +88,17 @@ const handleDeleteConfirmClick = () => {
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+.nurses-table--desktop {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .nurses-table--desktop {
+    display: block;
+  }
+  .nurses-table--mobile {
+    display: none;
+  }
+}
+</style>

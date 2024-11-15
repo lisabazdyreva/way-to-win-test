@@ -1,7 +1,7 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    headers: string[];
+    headers: Array<{ title: string; width: string }>;
   }>(),
   {},
 );
@@ -12,11 +12,12 @@ withDefaults(
     <thead>
       <tr class="bg-emerald-700 text-white">
         <th
-          v-for="header in headers"
-          :key="header"
-          class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider"
+          v-for="(header, i) in headers"
+          :key="i"
+          class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider last-of-type:text-center"
+          :class="{ [header.width]: header?.width }"
         >
-          {{ header }}
+          {{ header.title }}
         </th>
       </tr>
     </thead>

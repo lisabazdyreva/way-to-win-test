@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
+
 import UButton from "@/components/uikit/UButton.vue";
 
 defineEmits<{
@@ -13,14 +14,14 @@ defineEmits<{
       <ul class="flex gap-2 items-center">
         <li>
           <RouterLink
-            class="flex py-6 px-4 text-zinc-600 hover:text-zinc-800 font-bold transition duration-100"
+            class="link flex py-6 px-4 text-zinc-600 hover:text-zinc-800 font-bold transition duration-100"
             to="/physicians"
             >Врачи</RouterLink
           >
         </li>
         <li>
           <RouterLink
-            class="flex py-6 px-4 text-zinc-600 hover:text-zinc-800 font-bold"
+            class="link flex py-6 px-4 text-zinc-600 hover:text-zinc-800 font-bold"
             to="/nurses"
             >Медсестры</RouterLink
           >
@@ -35,4 +36,8 @@ defineEmits<{
   </header>
 </template>
 
-<style scoped></style>
+<style scoped>
+.link.router-link-exact-active {
+  color: rgb(39 39 42);
+}
+</style>

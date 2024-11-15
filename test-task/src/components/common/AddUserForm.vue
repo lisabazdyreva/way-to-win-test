@@ -47,6 +47,8 @@ const isChief = ref<boolean | null>(
     : null,
 );
 
+const errorMessage = ref<null | string>("Заполните все поля формы");
+
 const handleIsChiefChange = () => {
   isChief.value = !isChief.value;
 };
@@ -67,6 +69,7 @@ const getNurseData = () => {
     !branch.value ||
     !userType.value
   ) {
+    errorMessage.value = "Заполните данные";
     return;
   }
 
@@ -89,6 +92,7 @@ const getPhysicianData = () => {
     !branch.value ||
     !userType.value
   ) {
+    errorMessage.value = "Заполните данные";
     return;
   }
 
@@ -157,6 +161,7 @@ const handleUserFormSubmit = () => {
     <UTextInput
       v-model="name"
       class="mb-4"
+      required
       label="Имя"
       type="text"
       placeholder="Иван"
@@ -206,14 +211,18 @@ const handleUserFormSubmit = () => {
       />
     </div>
 
-    <UCheckbox
-      class="mb-4"
-      name="chief"
-      :value="isChief"
-      :disabled="userType === UserType.Nurse || !userType"
-      label="Заведующий"
-      @update="handleIsChiefChange"
-    />
+    <!--    <UCheckbox-->
+    <!--      class="mb-4"-->
+    <!--      name="chief"-->
+    <!--      :value="isChief"-->
+    <!--      :disabled="userType === UserType.Nurse || !userType"-->
+    <!--      label="Заведующий"-->
+    <!--      @update="handleIsChiefChange"-->
+    <!--    />-->
+
+    <p class="text-red-500 text-sm h-10">
+      {{ errorMessage }}
+    </p>
 
     <UButton theme="dark-gray" type="submit"> Сохранить </UButton>
   </form>
