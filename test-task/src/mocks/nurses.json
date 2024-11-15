@@ -14,5 +14,37 @@
     "fatherName": "Валентиновна",
     "branch": "cardiology",
     "type": "nurse"
+  },
+  {
+    "id": "8a7f945d-3b4e-453d-81e7-1f4d62e57358",
+    "name": "Мария",
+    "surname": "Петрова",
+    "fatherName": "Александровна",
+    "branch": "cardiology",
+    "type": "nurse"
+  },
+  {
+    "id": "a11b7f82-24e9-4dc8-9bc1-fad8ac1d7f41",
+    "name": "Анна",
+    "surname": "Кузнецова",
+    "fatherName": "Игоревна",
+    "branch": "cardiology",
+    "type": "nurse"
+  },
+  {
+    "id": "5e9b4a19-3395-4e37-a9f0-c676b3e9e6b7",
+    "name": "Наталья",
+    "surname": "Васильева",
+    "fatherName": "Сергеевна",
+    "branch": "surgery",
+    "type": "nurse"
+  },
+  {
+    "id": "16f1c52a-2743-4d5a-b843-c45c2a8dd729",
+    "name": "Виктория",
+    "surname": "Михайлова",
+    "fatherName": "Дмитриевна",
+    "branch": "surgery",
+    "type": "nurse"
   }
 ]

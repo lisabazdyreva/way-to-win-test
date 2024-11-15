@@ -15,7 +15,7 @@ defineEmits<{
 </script>
 
 <template>
-  <ul>
+  <ul class="max-w-[600px] mx-auto">
     <li
       class="mb-4 bg-emerald-50 p-4 rounded last-of-type:mb-0"
       v-for="physician in physicians"
@@ -23,7 +23,7 @@ defineEmits<{
     >
       <div>
         <div class="mb-2">
-          <h3 class="text-xl font-medium text-gray-700">
+          <h3 class="text-xl font-bold text-gray-700">
             Отделение:
             <span>{{ BranchLabel[physician.branch].toLowerCase() }}</span>
           </h3>

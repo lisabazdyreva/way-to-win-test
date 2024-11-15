@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import UTable from "@/components/uikit/UTable.vue";
+import UButton from "@/components/uikit/UButton.vue";
 import EditIcon from "@/components/icons/EditIcon.vue";
 import RemoveIcon from "@/components/icons/RemoveIcon.vue";
 
 import type { IPhysician } from "@/types/user";
-import { ref } from "vue";
 import { BranchLabel } from "@/consts";
-import UButton from "@/components/uikit/UButton.vue";
 
 defineProps<{
   physicians: Array<IPhysician>;
@@ -16,9 +15,6 @@ defineEmits<{
   (e: "open-edit", value: IPhysician): void;
   (e: "remove-item", id: string): void;
 }>();
-
-const currentSortType = ref<null | string>();
-const currentFilterType = ref<null | string>();
 
 const headers = [
   {
@@ -38,8 +34,6 @@ const headers = [
 
 <template>
   <div>
-    <!--    <div class="flex justify-between">Фильтрация, сортировка</div>-->
-
     <UTable :headers="headers">
       <template #rows>
         <tr

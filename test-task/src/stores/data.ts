@@ -25,7 +25,8 @@ export const useDataStore = defineStore("dataStore", () => {
     }
 
     const index = physicians.value.findIndex(({ id }) => id === physician.id);
-    if (!index) {
+
+    if (isNaN(index)) {
       return;
     }
 
@@ -57,7 +58,7 @@ export const useDataStore = defineStore("dataStore", () => {
     }
 
     const index = nurses.value.findIndex(({ id }) => id === nurse.id);
-    if (!index) {
+    if (isNaN(index)) {
       return;
     }
 

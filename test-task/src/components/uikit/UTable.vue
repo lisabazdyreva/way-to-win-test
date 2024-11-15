@@ -14,7 +14,7 @@ withDefaults(
         <th
           v-for="(header, i) in headers"
           :key="i"
-          class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider last-of-type:text-center"
+          class="px-6 py-5 text-left text-xs font-semibold uppercase tracking-wider last-of-type:text-center"
           :class="{ [header.width]: header?.width }"
         >
           {{ header.title }}

@@ -6,28 +6,35 @@ const props = defineProps<{
   name: string;
   value: string;
   label: string;
+  disabled?: boolean;
+  required?: boolean;
 }>();
 
 defineEmits<{
   (e: "update:model-value", value: string): void;
 }>();
-
-const id = computed(() => `${props.name}_${props.value}`);
 </script>
 
 <template>
-  <div class="flex items-center space-x-2">
+  <label class="flex items-center cursor-pointer group">
     <input
       type="radio"
-      :id="id"
-      :checked="modelValue === value"
       :name="name"
+      :checked="modelValue === value"
       :value="value"
-      class="h-4 w-4 text-blue-500 border-gray-300 focus:ring-blue-500"
+      :required="required"
+      :disabled="disabled"
+      class="peer sr-only"
       @change="$emit('update:model-value', value)"
     />
-    <label :for="id" class="text-gray-700 font-medium">{{ label }}</label>
-  </div>
+    <span
+      class="w-5 h-5 rounded-full border-2 border-gray-300 group-hover:border-emerald-600 peer-focus:border-emerald-600 peer-checked:border-emerald-600 peer-checked:bg-emerald-600 transition-all"
+    ></span>
+    <span
+      class="ml-2 text-base font-medium text-gray-600 group-hover:text-emerald-600 peer-focus:text-emerald-600 peer-checked:text-gray-600 transition-all"
+      >{{ label }}</span
+    >
+  </label>
 </template>
 
 <style scoped></style>

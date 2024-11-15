@@ -30,7 +30,7 @@ provide("userModal", {
 </script>
 
 <template>
-  <div class="flex flex-col min-h-svh">
+  <div class="app flex flex-col min-h-svh">
     <LayoutHeader
       class="fixed w-full z-10"
       @open-modal="() => setIsUserModalOpen(true)"
@@ -41,16 +41,15 @@ provide("userModal", {
       Тестовое задание
     </footer>
 
-    <UModalWrapper
-      v-if="isUserModalOpen"
-      @close-modal="() => setIsUserModalOpen(false)"
-    >
-      <AddUserForm
-        :user="editUser"
-        :is-edit-mode="!!editUser"
-        @close-modal="() => setIsUserModalOpen(false)"
-      />
-    </UModalWrapper>
+    <teleport v-if="isUserModalOpen" to="body">
+      <UModalWrapper @close-modal="() => setIsUserModalOpen(false)">
+        <AddUserForm
+          :user="editUser"
+          :is-edit-mode="!!editUser"
+          @close-modal="() => setIsUserModalOpen(false)"
+        />
+      </UModalWrapper>
+    </teleport>
   </div>
 </template>
 

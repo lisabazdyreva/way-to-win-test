@@ -36,7 +36,7 @@ const surname = ref<string | null>(props?.user?.surname || null);
 const fatherName = ref<string | null>(props?.user?.fatherName || null);
 const branch = ref<null | BranchType>(props?.user?.branch || null);
 
-const userType = ref<null | UserType>(props?.user?.type || null); // todo lisa
+const userType = ref<null | UserType>(props?.user?.type || null);
 
 const isPhysician = (obj: null | INurse | IPhysician): obj is IPhysician => {
   return obj?.type === UserType.Physician;
@@ -58,25 +58,19 @@ const handleBranchChange = (branchValue: string) => {
 };
 
 const handleUserTypeChange = (userTypeValue: string) => {
+  isChief.value = false;
   userType.value = userTypeValue as UserType;
 };
 
 const getNurseData = () => {
-  if (
-    !name.value ||
-    !fatherName.value ||
-    !surname.value ||
-    !branch.value ||
-    !userType.value
-  ) {
-    errorMessage.value = "Заполните данные";
+  if (!name.value || !surname.value || !branch.value || !userType.value) {
     return;
   }
 
   const data: INurse = {
-    id: id.value || uuidv4(), // todo lisa generate uuid
+    id: id.value || uuidv4(),
     name: name.value,
-    fatherName: fatherName.value,
+    fatherName: fatherName.value ?? "",
     surname: surname.value,
     branch: branch.value,
     type: userType.value,
@@ -85,21 +79,14 @@ const getNurseData = () => {
 };
 
 const getPhysicianData = () => {
-  if (
-    !name.value ||
-    !fatherName.value ||
-    !surname.value ||
-    !branch.value ||
-    !userType.value
-  ) {
-    errorMessage.value = "Заполните данные";
+  if (!name.value || !surname.value || !branch.value || !userType.value) {
     return;
   }
 
   const data: IPhysician = {
-    id: id.value || uuidv4(), // todo lisa generate uuid
+    id: id.value || uuidv4(),
     name: name.value,
-    fatherName: fatherName.value,
+    fatherName: fatherName.value ?? "",
     surname: surname.value,
     branch: branch.value,
     type: userType.value,
@@ -111,13 +98,31 @@ const getPhysicianData = () => {
   return data;
 };
 
+const updateNurse = (data: INurse) => {
+  if (props.user?.type === UserType.Nurse) {
+    dataStore.updateNurses(data);
+    return;
+  }
+  dataStore.removePhysician(data.id);
+  dataStore.addNurse(data);
+};
+
+const updatePhysician = (data: IPhysician) => {
+  if (props.user?.type === UserType.Physician) {
+    dataStore.updatePhysicians(data);
+    return;
+  }
+  dataStore.removeNurses(data.id);
+  dataStore.addPhysician(data);
+};
+
 const updateUser = (data: INurse | IPhysician) => {
   if (userType.value === UserType.Nurse) {
-    dataStore.updateNurses(data);
+    updateNurse(data);
   }
 
   if (userType.value === UserType.Physician) {
-    dataStore.updatePhysicians(data);
+    updatePhysician(data);
   }
 };
 
@@ -178,19 +183,21 @@ const handleUserFormSubmit = () => {
     <UTextInput
       class="mb-4"
       label="Фамилия"
+      required
       v-model="surname"
       type="text"
       placeholder="Иванов"
     />
 
     <div class="mb-4">
-      <h4 class="text-md text-gray-600 font-bold mb-1">Укажите отделение:</h4>
+      <h4 class="text-md text-gray-600 font-bold mb-2">Укажите отделение:</h4>
 
       <URadio
         v-for="(branchItem, i) in branches"
         :key="i"
-        class="mb-1"
+        class="mb-1.5"
         name="branch"
+        required
         :model-value="branch"
         :value="branchItem"
         :label="BranchLabel[branchItem]"
@@ -203,7 +210,9 @@ const handleUserFormSubmit = () => {
       <URadio
         v-for="(userTypeItem, i) in userTypes"
         :key="i"
+        class="mb-1.5"
         name="user-type"
+        required
         :model-value="userType"
         :value="userTypeItem"
         :label="UserTypeLabel[userTypeItem]"
@@ -211,14 +220,13 @@ const handleUserFormSubmit = () => {
       />
     </div>
 
-    <!--    <UCheckbox-->
-    <!--      class="mb-4"-->
-    <!--      name="chief"-->
-    <!--      :value="isChief"-->
-    <!--      :disabled="userType === UserType.Nurse || !userType"-->
-    <!--      label="Заведующий"-->
-    <!--      @update="handleIsChiefChange"-->
-    <!--    />-->
+    <UCheckbox
+      class="mb-4"
+      :value="isChief"
+      :disabled="userType === UserType.Nurse || !userType"
+      label="Заведующий"
+      @update="handleIsChiefChange"
+    />
 
     <p class="text-red-500 text-sm h-10">
       {{ errorMessage }}
